@@ -22,10 +22,12 @@ export function App() {
 
   function handleInputChange(event: ChangeEvent<HTMLInputElement>){
     const { value } = event.target; 
-    setSearchKey(value)
+    setSearchKey(value.trim())
   }
   async function getBook(e: React.FormEvent) {
     e.preventDefault();
+
+    if (searchKey.length <= 0) return;
 
     const { data } = await api.get<DataProps>(`search?query=${searchKey}`);
 
